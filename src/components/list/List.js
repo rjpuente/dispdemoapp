@@ -50,8 +50,9 @@ const ListComponent = () => {
         setShowProfile(!showProfile)
     }
 
-    const getProfile = () => {
-        setShowProfile(true)
+    const getProfile = (task) => {
+        setShowProfile(true);
+        setTask(task);
     }
 
     return (taskItems && taskItems.length > 0 ?
@@ -62,16 +63,20 @@ const ListComponent = () => {
                 </Text>
                 <View style={styles.items}>
                     <SafeAreaView>
-                        <FlatList data={taskItems} renderItem={({ item, i }) => (<ItemList task={item} i={i} />)} >
+                        <FlatList data={taskItems} renderItem={({ item, i }) => (<Item task={item} i={i} />)} >
                         </FlatList>
                     </SafeAreaView>
                 </View>
             </View>
-            <Modal animationType="slide" transparent="true" visible={showProfile}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={showProfile}
                 onRequestClose={() => {
-                    Alert.alert("modal has been closed.")
-                    setShowProfile(!showProfile)
-                }}>
+                    Alert.alert("modla has been closed");
+                    closeProfile();
+                }}
+            >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>

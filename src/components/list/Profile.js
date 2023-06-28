@@ -1,39 +1,48 @@
 import React from "react";
-import { Linking, View } from "react-native";
+import { Linking, StyleSheet, View, Image, Text } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const instagram_username = <Icon name="instagram" size={30} color="black" />
+const portfolio_url = <Icon name="globe" size={30} color="black" />
 
-const Profile = ({ task }) => {
+
+const Profile = ({ task, closeProfile }) => {
     return (
-        <View>
+        <View style={styles.item}>
             <View style={styles.supimage}>
                 <View style={styles.leftSide}>
-                    <Image style={styles.image} source={{ uri: task.urls.raw }} />
+                    <Image style={styles.image} source={{ uri: task?.urls?.raw }} />
                 </View>
-                <View style={styles.rightSide}>
-                    <Text style={{ color: 'blue' }} onPress={() => {
+                <View style={styles.rightside}>
+                    <Text style={{ color: "blue" }} onPress={() => {
                         Linking.openURL(task.user.portfolio_url)
                     }}>
                         {task.user.name}
                     </Text>
                     <View style={styles.redes}>
-                        <Text style={{ color: 'blue' }} onPress={() => {
+                        <Text style={{ color: "blue" }} onPress={() => {
                             Linking.openURL(task.user.social.instagram_username)
                         }}>
                             {instagram_username}
                         </Text>
-
-                        <Text style={{ color: 'blue' }} onPress={() => {
-                            Linking.openURL(task.user.social.portfolio_url)
+                        <Text style={{ color: "blue" }} onPress={() => {
+                            Linking.openURL(task.user.portfolio_url)
                         }}>
                             {portfolio_url}
                         </Text>
                     </View>
-                    <View style={styles.containerkpi}>
-                        <Image style={styles.image} source={require('../../')} />
-                    </View>
                 </View>
             </View>
+            <View style={styles.containerkpi}>
+                <View style={styles.kpiR}>
+                    <Image style={styles.image2} source={require('../../../assets/Like.png')} />
+                </View>
+            </View>
+            <Text style={{ color: "blue" }} onPress={() => {
+                closeProfile()
+            }}>
+                CERRAR
+            </Text>
         </View>
     )
 }
@@ -46,50 +55,41 @@ const styles = StyleSheet.create({
         borderRadius: "20",
         display: "flex",
         justifyContent: "center",
-        alighItems: "center"
-    },
-    supimage: {
-        height: "100%",
+        alignItems: "center"
+    }, supimage: {
         width: "100%",
+        height: "100%",
         flexBasis: "70%",
         display: "flex",
         flexDirection: "row"
-    },
-    leftSide: {
-        flex: "50%",
+    }, leftSide: {
+        flexBasis: "50%",
         display: "flex",
         justifyContent: "center",
-        alighItems: "center"
-    },
-    image: {
+        alignItems: "center"
+    }, image: {
         width: 100,
         height: 100,
         borderRadius: 50
-    },
-    rightSide: {
+    }, rightside: {
         flexBasis: "50%",
         display: "flex",
-        alighItems: "center",
+        alignItems: "center",
         flexDirection: "column",
         justifyContent: "space-evenly"
-    },
-    redes: {
+    }, redes: {
         width: "100%",
         display: "flex",
         justifyContent: "space-around",
-        alighItems: "center",
         flexDirection: "row"
-    },
-    containerkpi: {
+    }, containerkpi: {
         width: 100,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around"
-    },
-    kpiR: {
+    }, kpiR: {
         width: 20
-    },
-    image2: {
+    }, image2: {
         width: 20,
         height: 20
     }
