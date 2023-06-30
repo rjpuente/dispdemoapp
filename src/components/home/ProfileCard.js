@@ -3,8 +3,10 @@ import { Image, Linking, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styles from "../styles"
 
-const tw = <Icon name="instagram" size={30} color="black" />
+const tw = <Icon name="twitter" size={30} color="black" />
 const fb = <Icon name="facebook" size={30} color="black"/>
+const lk = <Icon name="linkedin" size={30} color="black"/>
+const ig = <Icon name="instagram" size={30} color="black"/>
 
 const ProfileCard = () => {
     const user = {
@@ -22,11 +24,17 @@ const ProfileCard = () => {
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <Text style={{ color: "blue" }} onPress={() => Linking.openURL("https://www.instagram.com/rjpuentelopez/")}>
+                <Text style={{ color: "blue" }} onPress={() => Linking.openURL("https://www.twitter.com")}>
                     {tw}
                 </Text>
                 <Text style={[{ color: "blue" }, styles.hover]} onPress={() => Linking.openURL("https://www.facebook.com")}>
                     {fb}
+                </Text>
+                <Text style={[{ color: "blue" }, styles.hover]} onPress={() => Linking.openURL("https://www.instagram.com")}>
+                    {ig}
+                </Text>
+                <Text style={[{ color: "blue" }, styles.hover]} onPress={() => Linking.openURL("https://www.linkedin.com")}>
+                    {lk}
                 </Text>
             </View>
         </View>

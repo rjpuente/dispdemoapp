@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         height: 200,
-      }, taskWrapper: {
+    }, taskWrapper: {
         paddingTop: 80,
         paddingHorizontal: 20,
         height: 980
