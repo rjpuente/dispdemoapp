@@ -1,11 +1,77 @@
 import { View, StyleSheet, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import axios from "axios"
 import { Button } from "react-native-web";
+
+const apiKey = "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"
+
+const BINARI_CONVERTER_ROL = "Convierte a binario el siguiente número: "
+const CONTADOR_VOCALES_ROL = "Cuenta las vocales del siguiente texto:  "
+
+const AppGpt = () => {
+    
+    const [data, setData] = useState([]);
+    const [usage, setUsage] = useState([]);
+    const [textInput, setTextInput] = useState("");    
+
+
+    async function callOpenAiApi() {
+        const prompt = textInput
+
+        const ApiBody = {
+            model: "text-davinci-003",
+            prompt: BINARI_CONVERTER_ROL + prompt,
+            temperature: 0,
+            max_tokens: 60,
+            top_p: 1.0,
+            frequency_penalty: 0.5,
+            presence_penalty: 0.0,
+        }
+
+        await fetch("https://api.openai.com/v1/completions", {
+            method: "Post",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + apiKey
+            },
+            body: JSON.stringify(ApiBody)
+        }).then((data) => {
+            return data.json();
+        }).then((data) =>{
+            console.log(data);
+            setData(data.choices[0].text.trim());
+            setUsage(data.usage.total_tokens);
+        });
+    }
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>
+                Realizar pretición a ChatGPT
+            </Text>
+            {data !== "" ?
+                <h3> La cantidad de tokens usada es: {usage}</h3>
+                :
+                null
+            }
+            {data !== "" ?                
+                <h3>{data}</h3>
+                :
+                null
+            }
+            <TextInput
+                style={styles.input}
+                value={textInput}
+                onChangeText = {text => setTextInput(text)}
+                placeholder="Ingrese solo números"
+            />
+            <Button title="Preguntar" onPress={callOpenAiApi} />
+        </View>
+    )
+}
 
 const ChatGPT = () => {
     const [data, setData] = useState([]);
-    const apiKey = "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"
+    const apiKey = "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"
     const apiUrl = "https://api.openai.com/v1/engines/text-davinci-002/completions"
     const [textInput, setTextInput] = useState("");
 
@@ -17,22 +83,7 @@ const ChatGPT = () => {
         setTextInput(numericValue);
     };
 
-    const handleSend = async () => {
-        const prompt = textInput
-        const response = await axios.post(apiUrl, {
-            prompt: prompt,
-            max_tokens: 1024,
-            temperature: 0.5,
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + apiKey
-            }
-        });
-        const text = response.data.choices[0].text;
-        setData([...data, { type: "user", "text": textInput }, { type: "bot", "text": text }]);
-        setTextInput("");
-    }
+    
 
     return (
         <View style={styles.container}>
@@ -57,10 +108,9 @@ const ChatGPT = () => {
             <TextInput
                 style={styles.input}
                 value={textInput}
-                onChangeText={handleChangeText}
                 placeholder="Ingrese solo números"
             />
-            <Button title="Preguntar" onPress={handleSend} />
+            <Button title="Preguntar" onPress={callOpenAiApi} />
         </View>
     )
 }
@@ -102,4 +152,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default ChatGPT
+export default AppGpt
