@@ -23,8 +23,8 @@ const navigation = () => {
             <Tab.Screen name="Nombre" component={NombreComponent} options={{
                 tabBarLabel: "Nombre",
             }}></Tab.Screen>
-            <Tab.Screen name="GPT" component={ChatGPT} options={{
-                tabBarLabel: "GPT",
+            <Tab.Screen name="OpenAi" component={ChatGPT} options={{
+                tabBarLabel: "OpenAi",
             }}></Tab.Screen>
         </Tab.Navigator>
     )

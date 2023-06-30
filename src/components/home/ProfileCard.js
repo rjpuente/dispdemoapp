@@ -2,11 +2,17 @@ import React from "react";
 import { Image, Linking, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"
 import styles from "../styles"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTiktok } from '@fortawesome/free-brands-svg-icons'
+
+const tk = <FontAwesomeIcon icon={faTiktok} style={{fontSize: '30px', color: 'black'}} />
+
 
 const tw = <Icon name="twitter" size={30} color="black" />
 const fb = <Icon name="facebook" size={30} color="black"/>
 const lk = <Icon name="linkedin" size={30} color="black"/>
 const ig = <Icon name="instagram" size={30} color="black"/>
+
 
 const ProfileCard = () => {
     const user = {
@@ -35,6 +41,9 @@ const ProfileCard = () => {
                 </Text>
                 <Text style={[{ color: "blue" }, styles.hover]} onPress={() => Linking.openURL("https://www.linkedin.com")}>
                     {lk}
+                </Text>
+                <Text style={[{ color: "blue" }, styles.hover]} onPress={() => Linking.openURL("https://www.tiktok.com/")}>
+                    {tk}
                 </Text>
             </View>
         </View>

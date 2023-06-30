@@ -5,9 +5,17 @@ import { Button } from "react-native-web";
 
 const ChatGPT = () => {
     const [data, setData] = useState([]);
-    const apiKey = "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"
+    const apiKey = "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"
     const apiUrl = "https://api.openai.com/v1/engines/text-davinci-002/completions"
     const [textInput, setTextInput] = useState("");
+
+    const handleChangeText = (text) => {
+        // Remover cualquier carácter que no sea un número utilizando una expresión regular
+        const numericValue = text.replace(/[^0-9]/g, '');
+
+        // Actualizar el estado con el valor numérico
+        setTextInput(numericValue);
+    };
 
     const handleSend = async () => {
         const prompt = textInput
@@ -49,10 +57,10 @@ const ChatGPT = () => {
             <TextInput
                 style={styles.input}
                 value={textInput}
-                onChangeText={text => setTextInput(text)}
-                placeholder="Pregúntame algo"
+                onChangeText={handleChangeText}
+                placeholder="Ingrese solo números"
             />
-            <Button title="Preguntar" onPress={handleSend}/>
+            <Button title="Preguntar" onPress={handleSend} />
         </View>
     )
 }
