@@ -5,7 +5,7 @@ import { Button } from "react-native-web";
 
 const ChatGPT = () => {
     const [data, setData] = useState([]);
-    const apiKey = "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"
+    const apiKey = "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"
     const apiUrl = "https://api.openai.com/v1/engines/text-davinci-002/completions"
     const [textInput, setTextInput] = useState("");
 
