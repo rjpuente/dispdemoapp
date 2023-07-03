@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: -75,
   },
+  titleContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
   avatar: {
     width: 150,
     height: 150,
@@ -32,6 +36,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "40%",
     justifyContent: "space-between",
+  },  
+  queryConsumerContainer: {
+    flexDirection: "row",
+    marginTop: 10,
+    width: "40%",
+    justifyContent: "space-between",
+    marginHorizontal: 30,
   },
   item: {
     backgroundColor: "#FFF",
