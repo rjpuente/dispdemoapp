@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "react-native-web";
 import stylesJS from "../styles"
 
-const apiKey = "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"
+const apiKey = "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"
 
 const BINARI_CONVERTER_ROL = "Convierte a binario el siguiente número: "
 const CONTADOR_VOCALES_ROL = "Cuenta la cantidad de cada una de las vocales del siguiente texto:  "
