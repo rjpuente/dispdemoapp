@@ -1,62 +1,46 @@
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { DocumentPicker } from 'expo-document-picker';
+import React, { useState } from 'react';
+import { PDFDocument, rgb } from 'pdf-lib';
 
-import stylesJS from "../styles";
+const FileUploadScreen = () => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
-function PDFReader() {
-    const [fileUri, setFileUri] = useState(null);
+  const onDrop = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles(files);
+  };
 
-    const handleFilePick = async () => {
-        try {
-            const document = await DocumentPicker.getDocumentAsync({
-                type: DocumentPicker.types.pdf,
-            });
-            setFileUri(document.uri);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  const uploadFiles = async () => {
+    try {
+      const pdfDoc = await PDFDocument.create();
 
-    const handleSaveToFolder = async () => {
-        if (!fileUri) {
-            console.log("Seleccione un archivo PDF primero.");
-            return;
-        }
+      for (const file of selectedFiles) {
+        const existingPdfBytes = await file.arrayBuffer();
+        const newPdf = await PDFDocument.load(existingPdfBytes);
 
-        // Aquí, simplemente utiliza el URI del archivo seleccionado (fileUri) para guardar en la carpeta.
-        // Ya que la API de FileSystem está integrada en Expo, no necesitas importar nada adicional.
+        const pages = await pdfDoc.copyPages(newPdf, newPdf.getPageIndices());
+        pages.forEach((page) => pdfDoc.addPage(page));
+      }
 
-        const destinationPath = `${FileSystem.documentDirectory}mi_carpeta/uploadedFile.pdf`;
+      const mergedPdfBytes = await pdfDoc.save();
 
-        try {
-            // Crea la carpeta si no existe
-            await FileSystem.makeDirectoryAsync(`${FileSystem.documentDirectory}mi_carpeta`, { intermediates: true });
-            // Copia el archivo en la carpeta específica
-            await FileSystem.copyAsync({ from: fileUri, to: destinationPath });
-            console.log("Archivo PDF guardado en la carpeta:", destinationPath);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+      // Crear un objeto Blob para el PDF resultante
+      const mergedPdfBlob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
 
-    return (
-        <View style={stylesJS.container}>
-            <View style={stylesJS.titleContainer}>
-                <Text>Subir PDF</Text> {/* Agrega <Text> alrededor del texto */}
-            </View>
-            <View style={stylesJS.queryConsumerContainer}>
-                <TouchableOpacity onPress={handleFilePick}>
-                    <Text>Seleccionar PDF</Text>
-                </TouchableOpacity>
-                {fileUri && (
-                    <TouchableOpacity onPress={handleSaveToFolder}>
-                        <Text>Guardar en Carpeta</Text>
-                    </TouchableOpacity>
-                )}
-            </View>
-        </View>
-    );
-}
+      // Crear una URL para el Blob y mostrar el PDF en un visor
+      const pdfUrl = URL.createObjectURL(mergedPdfBlob);
+      window.open(pdfUrl);
+    } catch (error) {
+      console.error('Error al fusionar los PDFs:', error);
+    }
+  };
 
-export default PDFReader;
+  return (
+    <div>
+      <h1>Subir y Fusionar Archivos PDF</h1>
+      <input type="file" accept=".pdf" multiple onChange={onDrop} />
+      <button onClick={uploadFiles}>Fusionar y Mostrar PDF</button>
+    </div>
+  );
+};
+
+export default FileUploadScreen;

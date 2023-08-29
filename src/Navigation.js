@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ListComponent from "./components/list/List";
 import NombreComponent from "./components/nombre/Nombre";
 import ChatGPT from "./components/gpt/gpt";
-import PDFReader from "./components/pdf/pdf";
+import FileUploadScreen from "./components/pdf/pdf";
 
 const Tab = createBottomTabNavigator()
 
@@ -27,7 +27,7 @@ const navigation = () => {
             <Tab.Screen name="OpenAi" component={ChatGPT} options={{
                 tabBarLabel: "OpenAi",
             }}></Tab.Screen>
-            <Tab.Screen name="PDF" component={PDFReader} options={{
+            <Tab.Screen name="PDF" component={FileUploadScreen} options={{
                 tabBarLabel: "PDF",
             }}></Tab.Screen>
         </Tab.Navigator>

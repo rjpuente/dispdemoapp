@@ -16,17 +16,21 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "expo": "~48.0.18",
-    "expo-document-picker": "^11.2.2",
+    "expo-document-picker": "^11.5.4",
     "expo-file-system": "^15.4.2",
     "expo-status-bar": "~1.4.4",
+    "langchain": "^0.0.136",
     "multer": "^1.4.5-lts.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-native": "0.71.8",
-    "react-native-document-picker": "^9.0.1",
+    "react-native-file-selector": "^1.0.2",
     "react-native-fs": "^2.20.0",
+    "react-native-paper": "^5.10.3",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "^0.18.10",
+    "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
