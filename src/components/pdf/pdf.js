@@ -28,7 +28,19 @@ const FileUploadScreen = () => {
 
       // Crear una URL para el Blob y mostrar el PDF en un visor
       const pdfUrl = URL.createObjectURL(mergedPdfBlob);
-      window.open(pdfUrl);
+
+      const formData = new FormData();
+      formData.append('pdfFile', mergedPdfBlob);
+      formData.append('question', 'Tu pregunta aquí');
+
+      // Realizar la solicitud POST al backend
+      const response = await fetch('http://localhost:8000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
       console.error('Error al fusionar los PDFs:', error);
     }

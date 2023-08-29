@@ -19,8 +19,14 @@
     "expo-document-picker": "^11.5.4",
     "expo-file-system": "^15.4.2",
     "expo-status-bar": "~1.4.4",
+    "fs": "^0.0.1-security",
     "langchain": "^0.0.136",
     "multer": "^1.4.5-lts.1",
+    "path": "^0.12.7",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^3.10.111",
+    "process-env": "^2.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
@@ -30,7 +36,8 @@
     "react-native-paper": "^5.10.3",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "^0.18.10",
-    "pdf-lib": "^1.17.1"
+    "hnswlib-node": "1.4.2",
+    "fs-extra": "^11.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
