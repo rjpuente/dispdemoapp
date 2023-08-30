@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
+import { Button, View } from "react-native-web";
+import { TextInput, Text } from "react-native";
+import stylesJS from "../styles"
 
 const FileUploadScreen = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [question, setQuestion] = useState('');
+  const [response, setResponse] = useState('');
 
   const onDrop = (event) => {
     const files = Array.from(event.target.files);
@@ -26,12 +31,9 @@ const FileUploadScreen = () => {
       // Crear un objeto Blob para el PDF resultante
       const mergedPdfBlob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
 
-      // Crear una URL para el Blob y mostrar el PDF en un visor
-      const pdfUrl = URL.createObjectURL(mergedPdfBlob);
-
       const formData = new FormData();
       formData.append('pdfFile', mergedPdfBlob);
-      formData.append('question', 'Tu pregunta aquí');
+      formData.append('question', question);
 
       // Realizar la solicitud POST al backend
       const response = await fetch('http://localhost:8000/upload', {
@@ -40,19 +42,88 @@ const FileUploadScreen = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      setResponse(data.message);
+
     } catch (error) {
       console.error('Error al fusionar los PDFs:', error);
     }
   };
 
   return (
-    <div>
-      <h1>Subir y Fusionar Archivos PDF</h1>
-      <input type="file" accept=".pdf" multiple onChange={onDrop} />
-      <button onClick={uploadFiles}>Fusionar y Mostrar PDF</button>
-    </div>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Subir y Fusionar Archivos PDF</Text>
+      </View>
+      
+      <View style={styles.inputContainer}>
+        {/* Utiliza el componente <input> de React Native Web */}
+        <input type="file" accept=".pdf" multiple onChange={onDrop} />
+      </View>
+
+      <View style={styles.inputContainer}>
+        {/* Utiliza el componente <TextInput> de React Native Web */}
+        <TextInput
+          style={[styles.input, { width: '180%', maxWidth: '350%' }]}
+          value={question}
+          onChangeText={(text) => setQuestion(text)}
+          placeholder="Haga la pregunta acerca de su pdf"
+        />
+      </View>
+
+      {response && (
+        <View style={styles.responseContainer}>
+          {/* Utiliza un elemento <div> en lugar de <Text> */}
+          <div style={styles.responseText}>Respuesta: {response}</div>
+        </View>
+      )}
+
+      <View style={styles.buttonContainer}>
+        {/* Utiliza el componente <Button> de React Native Web */}
+        <Button title="Preguntar" onPress={uploadFiles} />
+      </View>
+    </View>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    backgroundColor: '#f2f2f2',
+  },
+  title: {
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    padding: 20,
+    borderRadius: 5,
+    marginBottom: 20,
+    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  
+  inputContainer: {
+    marginBottom: 20,
+  },
+
+  responseContainer: {
+    marginTop: 20,
+  },
+  responseText: {
+    fontSize: '16px',
+    color: 'green',
+  },
+
+  buttonContainer: {
+    marginTop: 20,
+  },
 };
 
 export default FileUploadScreen;
