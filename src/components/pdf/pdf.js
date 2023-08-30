@@ -54,7 +54,7 @@ const FileUploadScreen = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Subir y Fusionar Archivos PDF</Text>
       </View>
-      
+
       <View style={styles.inputContainer}>
         {/* Utiliza el componente <input> de React Native Web */}
         <input type="file" accept=".pdf" multiple onChange={onDrop} />
@@ -63,7 +63,7 @@ const FileUploadScreen = () => {
       <View style={styles.inputContainer}>
         {/* Utiliza el componente <TextInput> de React Native Web */}
         <TextInput
-          style={[styles.input, { width: '180%', maxWidth: '350%' }]}
+          style={styles.input}
           value={question}
           onChangeText={(text) => setQuestion(text)}
           placeholder="Haga la pregunta acerca de su pdf"
@@ -72,8 +72,8 @@ const FileUploadScreen = () => {
 
       {response && (
         <View style={styles.responseContainer}>
-          {/* Utiliza un elemento <div> en lugar de <Text> */}
-          <div style={styles.responseText}>Respuesta: {response}</div>
+          {/* Utiliza un elemento <Text> en lugar de <div> */}
+          <Text style={styles.responseText}>Respuesta: {response}</Text>
         </View>
       )}
 
@@ -91,33 +91,33 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100vh',
+    minHeight: '100vh', // Cambio de height a minHeight
     backgroundColor: '#f2f2f2',
+    padding: 20, // Agregado de padding
   },
   title: {
-    fontSize: '24px',
-    marginBottom: '20px',
+    fontSize: 24,
+    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
     borderColor: '#cccccc',
-    padding: 20,
+    padding: 10,
     borderRadius: 5,
-    marginBottom: 20,
-    margin: 'auto',
-    display: 'flex',
-    justifyContent: 'center',
+    marginBottom: 10,
+    width: '100%', // Cambio de width a 100%
   },
-  
+
   inputContainer: {
     marginBottom: 20,
+    width: '100%', // Cambio de width a 100%
   },
 
   responseContainer: {
     marginTop: 20,
   },
   responseText: {
-    fontSize: '16px',
+    fontSize: 16,
     color: 'green',
   },
 
